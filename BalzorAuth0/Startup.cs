@@ -111,7 +111,7 @@ namespace BalzorAuth0
                         //this is a test to get response from api
                         //in this part yo have to save token on a global var and call api on page component
                         //
-                        var client3 = new RestClient("https://localhost:44339/test");
+                        var client3 = new RestClient("https://localhost:44339/WeatherForecast");
                         var request3 = new RestRequest(Method.GET);
                         request3.AddHeader("authorization", $"Bearer {accessJwt}");
                         IRestResponse response3 = client3.Execute(request3);

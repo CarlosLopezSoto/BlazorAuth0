@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace ApiAuth0.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "read:cuestion")]
         public IEnumerable<WeatherForecast> Get()
         {
             var rng = new Random();

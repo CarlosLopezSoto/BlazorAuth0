@@ -13,8 +13,8 @@ namespace ApiAuth0.Controllers
     public class Test : Controller
     {
         [HttpGet]
-        [Authorize(Roles = "Response")]
-        //[Authorize(Policy = "read:cuestion")]
+        //[Authorize(Roles = "Response")]
+        [Authorize(Policy = "read:cuestion")]
         public IActionResult Scoped()
         {
             return Ok(new

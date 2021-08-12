@@ -18,6 +18,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using ScopeLibrary.ScopeRequirement;
 using ScopeLibrary.ScopeHandler;
+using TokenLibrary.Token;
 
 namespace BalzorAuth0
 {
@@ -108,15 +109,7 @@ namespace BalzorAuth0
                         List<Claim> permissions = jwt.Claims.Where(x => x.Type == "permissions").ToList();
                         //add permission to user claims (in this case add new identity)
                         context.Principal.AddIdentity(new ClaimsIdentity(permissions));
-                        //this is a test to get response from api
-                        //in this part yo have to save token on a global var and call api on page component
-                        //
-                        var client3 = new RestClient("https://localhost:44339/WeatherForecast");
-                        var request3 = new RestRequest(Method.GET);
-                        request3.AddHeader("authorization", $"Bearer {accessJwt}");
-                        IRestResponse response3 = client3.Execute(request3);
-                        //
-                        //
+                        //return
                         return Task.FromResult(0);
                     },
                     // handle the logout redirection
@@ -151,7 +144,11 @@ namespace BalzorAuth0
             services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
             //
             services.AddHttpContextAccessor();
-            services.AddSingleton<WeatherForecastService>();
+            
+            services.AddHttpClient();
+            services.AddScoped<TokenProvider>();
+
+            services.AddScoped<WeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ScopeLibrary\ScopeLibrary.csproj" />
+    <ProjectReference Include="..\TokenLibrary\TokenLibrary.csproj" />
   </ItemGroup>
 
 </Project>

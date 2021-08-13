@@ -147,7 +147,6 @@ namespace BalzorAuth0
             
             services.AddHttpClient();
             services.AddScoped<TokenProvider>();
-
             services.AddScoped<WeatherForecastService>();
         }
 

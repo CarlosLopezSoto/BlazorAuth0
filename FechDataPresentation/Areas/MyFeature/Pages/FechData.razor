@@ -1,15 +1,19 @@
-﻿@page "/fetchdata"
-@using BalzorAuth0.Data
+﻿@page "/fetchdata-1"
+@using FechDataDomain
+@using FechDataApplication
+@using FechDataConfiguration
+@using FechDataConfiguration.FechDataReadJSON
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
 @inject WeatherForecastService ForecastService
 @attribute [Authorize(Roles = "Response")]
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
-
 <AuthorizeView Policy="read:cuestion">
     <p>You has the policy</p>
 </AuthorizeView>
-
+@fech.Name
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
@@ -41,9 +45,18 @@ else
 
 @code {
     private WeatherForecast[] forecasts;
-
-    protected override async Task OnInitializedAsync()
+    FechDataConfiguration.FechDataConfigObj.FechDataConf fech;
+    protected override void OnInitialized()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        fech = FechDataRead.GetConfig();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+            StateHasChanged();
+        }
     }
 }

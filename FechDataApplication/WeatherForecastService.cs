@@ -1,13 +1,14 @@
+﻿using FechDataDomain;
 using Newtonsoft.Json;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using TokenLibrary.Token;
 
-
-namespace BalzorAuth0.Data
+namespace FechDataApplication
 {
     public class WeatherForecastService
     {

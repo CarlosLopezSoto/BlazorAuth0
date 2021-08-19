@@ -1,4 +1,3 @@
-using BalzorAuth0.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +18,8 @@ using System.Security.Claims;
 using ScopeLibrary.ScopeRequirement;
 using ScopeLibrary.ScopeHandler;
 using TokenLibrary.Token;
+using FechDataApplication;
+using BlazorServerIngrastructure;
 
 namespace BalzorAuth0
 {
@@ -147,7 +148,8 @@ namespace BalzorAuth0
             
             services.AddHttpClient();
             services.AddScoped<TokenProvider>();
-            services.AddScoped<WeatherForecastService>();
+            Infrastructure.ConfigureServices(services);
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -177,6 +179,7 @@ namespace BalzorAuth0
             {
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+                endpoints.MapRazorPages();
             });
         }
     }

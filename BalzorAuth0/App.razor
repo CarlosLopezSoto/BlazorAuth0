@@ -1,6 +1,9 @@
 @inject TokenProvider TokenProvider
+@using System.Reflection
+@using BlazorServerIngrastructure
 <CascadingAuthenticationState>
-    <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+    <Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true"
+            AdditionalAssemblies="@assembies">
         <Found Context="routeData">
             <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
                 <Authorizing>
@@ -21,12 +24,12 @@
 @code {
     [Parameter]
     public InitialApplicationState InitialState { get; set; }
-
+    Assembly[] assembies;
     protected override Task OnInitializedAsync()
     {
         TokenProvider.AccessToken = InitialState.AccessToken;
         TokenProvider.RefreshToken = InitialState.RefreshToken;
-
+        assembies = Infrastructure.GetAssemblies();
         return base.OnInitializedAsync();
     }
 }
